@@ -1,129 +1,133 @@
+//array of books
+let library=[
 
-  let myLibrary=[];
+]
 
-/* localstorage */
+library=JSON.parse(localStorage.getItem("library"))|| []
+//Book constructor
+
+class Book{
+   constructor(title,author,pages,read){
+      this.title=title;
+      this.author=author;
+      this.pages=pages;
+       this.read=read;
+   }
+
+   
+}
+
+//UI functions
+
+class UI{
+ //iterate libray 
   
-myLibrary=JSON.parse(localStorage.getItem("myLibrary"))|| []
- 
- /* book prototype */
-function Book(title,author, pages,read){
-        this.title=title
-        this.author=author
-        this.pages=pages
-        this.read=read   
+     static display(){
+
+        document.querySelector(".your-library").innerHTML=""
+        localStorage.setItem("library",JSON.stringify(library))
+          library.forEach((book,index) => {
+                UI.CreateElement(book,index)
+          });
+     }
+      //clear User input fields
+      static clearField(){
+            document.querySelector(".title").value="";
+            document.querySelector(".Author").value="";
+            document.querySelector(".pages").value="";
+            document.querySelector(".read").value=""
+      }
+    //display books from library
+    static CreateElement(book,index){
+          const yourLibrary=document.querySelector(".your-library");
+          const card=document.createElement('div');
+            card.classList.add("card");
+            card.id=index
+            card.innerHTML=`
+                <span>Title: ${book.title}</span>
+                <span>Author: ${book.author}</span>
+                <span>Pages:${book.pages}</span>
+                <button class='opt'>${book.read}</button>
+                <button class="del">Remove Book</button>
+            `    
+            yourLibrary.appendChild(card);
+          
+         //readStatus
+         card.addEventListener('click',(e)=>{
+                UI.ReadStatus(book,e.target)
+                UI.delete(card,e.target)
+         })
+    }
+    //delete user
+    static delete(card,e){
+      
+              if(e.classList.contains("del")) {
+              library.splice(card.id,1);
+              loadBook() 
+              }
+        
+    }
+
+    //toggle Read Status
+     static ReadStatus(book,event){
+
+            if(event.classList.contains("opt")){
+                  if(book.read==="Not Read"){
+                      event.innerHTML=book.read="Read"
+                      loadBook() 
+                  }
+                  else if(book.read==="Read"){
+                    event.innerHTML=book.read="Not Read"
+                    loadBook() 
+                  }
+              } 
+      }
+}
+
+//local storage
+
+//users inputs
+
+
+function addBookToLibrary(title,author,pages,read) {
+  // do stuff here
+  const newBook=new Book(title,author,pages,read)
+  library.push(newBook)
+ UI.CreateElement(newBook)
+ loadBook()
+
 }
 
 
-/* inputs variable */
-const Title=document.querySelector('.title');
-const Author=document.querySelector('.Author');
-const Pages=document.querySelector('.pages');
-const Read=document.querySelector('.read');
+//form events
+document.querySelector(".form").addEventListener("submit",(e)=>{
+   
+     const title=document.querySelector(".title").value;
+     const author=document.querySelector(".Author").value;
+     const pages=document.querySelector(".pages").value;
+     const read=document.querySelector(".read").value;
+       if(title!=="" || author!=="" || pages!==""){
+        e.preventDefault();
+        //add book to library
+        addBookToLibrary(title,author,pages,read)
+        //close modal
+        modal.classList.remove('open-modal')
+        //clear input field
+         UI.clearField()
+       }
+})
+//load library to Dom as page loads
+function loadBook(){
+  
+  window.addEventListener("DOMContentLoaded",UI.display())
+}
 
-//add books to my library
-function addBookToLibrary() {
-  // do stuff here
-  let book=new Book(Title.value,Author.value,Pages.value,Read.value);
-  myLibrary.push(book);
- //reder book to the page
-  renderBook()
-}; 
-
-//create bookItems
-const yourLibrary=document.querySelector('.your-library');
-function CreateDisplayElement(book,indx){
-     //create bookItems
-    let card=document.createElement('div');
-    card.setAttribute('class',"card");
-    card.setAttribute("id",indx)
-    let titles=document.createElement('span');
-    let authors=document.createElement('span');
-    let pagess=document.createElement('span');
-    let reads=document.createElement('button');
-    let removeBtn=document.createElement('button');
-      card.append(titles,authors,pagess,reads,removeBtn);
-      yourLibrary.appendChild(card);
-      removebook(removeBtn,card);
-
-  /* giving Dom contents */
-  let caseTitle=book.title.charAt(0).toUpperCase() +book.title.slice(1).toLowerCase();
-  let authorTitle=book.author.charAt(0).toUpperCase() + book.author.slice(1).toLowerCase();
-   titles.innerText=`Tittle: ${caseTitle}`;
-   authors.innerText=`Author: ${authorTitle}`;
-   pagess.innerText=`Pages: ${book.pages}`;
-   reads.innerText=book.read;
-    removeBtn.innerHTML="Remove Book";
-
-    /* raed staus */
-    reads.addEventListener('click',(e)=>{
-        if(book.read==="Read"){
-         reads.innerHTML=book.read="Not Read";
-         renderBook()
-        
-        }
-        else if(book.read==="Not Read"){
-            card.classList.remove("reading")
-            reads.innerHTML=book.read="Read"
-            renderBook()
-           
-           }
-    });
-
-            /* add border if book is read */
-            if(book.read!=="Read"){
-                card.style.borderLeft="10px solid #950101"
-            // card.style.borderTop="10px solid #950101"
-            }
-            else if(book.read==="Read"){
-                card.style.borderLeft="10px solid #1E5128"
-            // card.style.borderTop="10px solid #1E5128"
-            };
-
-          
-};
-
-/* delete book from array on click */
-function removebook(btn,card){
-    btn.addEventListener("click",(e)=>{
-        myLibrary.splice(card.id,1)
-        renderBook()
-    });
-};
-
-/* render items in array to page */
-function renderBook(){
-    yourLibrary.innerHTML=""
-    localStorage.setItem("myLibrary",JSON.stringify(myLibrary))
-    myLibrary.forEach((book,index)=>{
-        
-        CreateDisplayElement(book,index)
-    });
-};
-
-renderBook()
+loadBook()
+//del button event
 
 
 
-/* form submit */
-const submitBtn=document.querySelector('.submit');
-
-submitBtn.addEventListener('click',(e)=>{
-
-        if(Title.value && Author.value && Pages.value && Read.value!==" "){
-            e.preventDefault()
-            addBookToLibrary() 
-            modal.classList.remove('open-modal');
-            Title.value=""
-            Author.value=""
-            Pages.value=""
-        };
-
-}); 
-
-
-
-
-/* modal overlay  */
+//modal overlay//
   const modal=document.querySelector('.modal');
   const modalContent=document.querySelector('.modal-content');
   const closeBtn=document.querySelector('.close-btn');

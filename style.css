@@ -102,7 +102,7 @@ flex-direction: column;
   font-size: 27px;
 }
 .card button{
-  font-size: 27px;
+  font-size: 24px;
   width: 100%;
   border: none;
   padding: 7px 0;
@@ -112,6 +112,7 @@ flex-direction: column;
   background-color: transparent;
   box-shadow: 2px 2px 4px rgba(0,0, 0,0.7);
   cursor: pointer;
+  padding:8px;
   
 }
 .card button:hover{
