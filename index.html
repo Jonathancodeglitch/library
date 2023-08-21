@@ -4,60 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Library</title>
- 
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-      <header>
-            <nav class="container">
-                <div class="logo">
-                    <span>Library</span>
-                    <img src="./img/library.png" alt="logo">
-                </div>
-                    
-                  <div class="nav-sml">
-                         <div class="add-btn">
-                              <button class="btn">+AddBook</button>
-                         </div>
-                        <div class="log-in">
-                            <button class="btn">Login</button>
-                        </div>
-                </div>
-            </nav>
-      </header>
-       <div class="container">
-               <h2 class="library-h2">Your Library</h2>
-            <section class="your-library">
-                 <!-- card -->   
-                      
-                    
-                        
-            </section>
-    </div>
-    <div class="modal">
-           <div class="modal-content">
-                    <div class="modal-box">
-                        <div class="modal-box-hd">
-                        <p>Add a new book to your library</p>
-                        <span class="close-btn">&times;</span>
-                        </div>
-                        <form class="form">
-                            <div class="input-container">
-                                <input type="text" placeholder="title" name="title" class="title" required>
-                                <input type="text" placeholder="Author" name="Author" class="Author" required>
-                                <input type="number" placeholder="Pages" name="pages" class="pages" required>
-                                <label for="read">Have you read this book:</label>
-                                <select name="read" id="read" class="read">
-                                    <option value="Read">Yes i have</option>
-                                    <option value="Not Read">No i Have not</option>
-                                  </select>
-                                <button class="btn submit" type="submit">Add book</button>
-                                
-                           </div>
-                        </form>
-                </div>
+   <header>
+        <div class="container">
+            <div class="logo-container">
+                <div class="logo-text">Library</div>
+                <img class="logo" src="./img/library.png" alt="logo">
+            </div>
+            <div class="button-container">
+                <div class="button">Add Book +</div>
+                <div class="button">Log in</div>
+            </div>
         </div>
-    </div>
+   </header>
    <script src="./app.js"></script>
 </body>
 </html>
