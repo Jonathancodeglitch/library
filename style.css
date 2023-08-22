@@ -6,8 +6,6 @@
 
 :root{
   --primary-color:#A1CCD1;
-  --read-color:#7C9D96;
-  --notread-color:#F5EFE7;
 }
 
 img{
@@ -149,7 +147,11 @@ transform: scale(.99);
   box-shadow: 0 0 16px rgba(0,0,0,0.3);
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  padding-bottom:40px;
+  padding-bottom:30px;
+}
+
+.modal::backdrop{
+  background-color:rgba(0,0,0,0.2);
 }
 
 .modal-content_header{
@@ -160,19 +162,69 @@ transform: scale(.99);
   border-top-right-radius: 10px;
   background-color: var(--primary-color);
   padding: 10px;
+  border-bottom: 3px solid #7C9D96;
 }
 
-.modal-content_header button{
-  border: 0;
-  background-color: transparent;
+.modal-content_header img{
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+}
+
+.modal-content_header h3{
+  font-size: 1.3rem;
   color: #ffff;
+  font-weight: bold;
+  text-transform: uppercase;
 }
 
 .modal-content_main{
+  padding: 20px 10px 0px 10px;
+}
+
+.modal-content_main > *+*{
+  margin-top: 15px;
+}
+
+.modal-content_main > input{
+  display: block;
+  width: 100%;
+  outline: none;
+  border: 0;
+  box-shadow:  0 0 5px rgba(0,0,0,0.3);
   padding: 10px;
 }
 
-.modal::backdrop{
-  background-color:rgba(0,0,0,0.2);
-  
+.modal-content_main > input::placeholder{
+  font-size: .85rem;
+  color: rgba(0,0,0,0.5);
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.modal-content_main label{
+  display: flex;
+  align-items: center;
+  font-size: .85rem;
+  color: rgba(0,0,0,0.5);
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.modal-content_main label input[type="checkbox"]{
+  display: inline-block;
+  margin-left: 8px;
+  cursor: pointer;
+}
+
+.modal-content_main button{
+  display: block;
+  padding: 10px;
+  width: 100%;
+  background-color: var(--primary-color);
+  cursor: pointer;
+  border: 0;
+  font-size: 1rem;
+  color: #ffff;
+  font-weight: bold;
 }

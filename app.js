@@ -19,4 +19,4 @@ function displayBooks() {}
 
 /* add book modal */
 
-document.querySelector('dialog').showModal();
+//document.querySelector('dialog').showModal();
