@@ -10,6 +10,10 @@
   --notread-color:#F5EFE7;
 }
 
+img{
+  max-width: 100%;
+}
+
 .container{
   max-width: 1200px;
   width: 85%;
@@ -17,7 +21,6 @@
 }
 
 .button{
-  display: inline-block;
   color: #ffff;
   text-transform: uppercase;
   cursor: pointer;
@@ -27,7 +30,7 @@
 /* header */
 header{
   background-color: var(--primary-color);
-  padding: 20px 0px;
+  padding: 30px 0px;
   box-shadow: 0px 4px 5px rgba(0,0,0,0.3);
   z-index: 1;
   position: fixed;
@@ -61,6 +64,7 @@ header .button-container{
 
 
 header .button-container .button{
+  display: inline-block;
   font-size: 1.1rem;
   font-weight: bold;
   padding: 10px 20px;
@@ -73,9 +77,102 @@ header .button-container .button{
 header .button-container .button:hover,
 header .button-container .button:active
 {
+
 transform: scale(1.1);
 }
 
 header .button + .button{
   margin-left: 30px;
+}
+
+/* main */
+
+main{
+  padding: 180px 0px 150px 0px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 300px);
+  justify-content: center;
+  gap: 30px;
+}
+
+.book{
+  padding: 25px;
+  padding-bottom: 35px;
+  border-radius: 20px;
+  box-shadow: 0px 5px 10px rgba(0,0,0,0.2);
+  width: 100%;
+  min-height:230px;
+}
+
+
+.book > div + div{
+  margin-top: 15px;
+}
+
+.book .item{
+  font-weight: bold;
+  line-height: 1.5;
+  color: rgba(0,0,0,0.6);
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.book .button{
+  display: block;
+  background-color: var(--primary-color);
+  text-align: center;
+  border-radius: 10px;
+  padding: 10px 0px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.2);
+}
+
+.book .button:hover,
+.book .button:active
+{
+transform: scale(.99);
+
+}
+
+/* modal */
+
+.modal{
+  max-width: 320px;
+  width: 100%;
+  position:fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 0;
+  box-shadow: 0 0 16px rgba(0,0,0,0.3);
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  padding-bottom:40px;
+}
+
+.modal-content_header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background-color: var(--primary-color);
+  padding: 10px;
+}
+
+.modal-content_header button{
+  border: 0;
+  background-color: transparent;
+  color: #ffff;
+}
+
+.modal-content_main{
+  padding: 10px;
+}
+
+.modal::backdrop{
+  background-color:rgba(0,0,0,0.2);
+  
 }

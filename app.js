@@ -15,6 +15,8 @@ function addBookToLibrary() {
   // do stuff here
 }
 
-function displayBooks(){
-  
-}
+function displayBooks() {}
+
+/* add book modal */
+
+document.querySelector('dialog').showModal();
