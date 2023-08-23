@@ -6,6 +6,7 @@
 
 :root{
   --primary-color:#A1CCD1;
+ 
 }
 
 img{
@@ -88,8 +89,7 @@ header .button + .button{
 main{
   padding: 180px 0px 150px 0px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, 300px);
-  justify-content: center;
+  grid-template-columns: repeat(auto-fill, minmax(300px,1fr));
   gap: 30px;
 }
 
@@ -191,7 +191,7 @@ transform: scale(.99);
   width: 100%;
   outline: none;
   border: 0;
-  box-shadow:  0 0 5px rgba(0,0,0,0.3);
+  box-shadow:  0 0 5px rgba(0,0,0,0.2);
   padding: 10px;
 }
 

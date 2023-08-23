@@ -14,47 +14,12 @@
                 <img class="logo" src="./img/library.png" alt="logo">
             </div>
             <div class="button-container">
-                <div class="button">Add Book +</div>
+                <div class="button" id="show-modal-btn">Add Book +</div>
                 <div class="button">Log in</div>
             </div>
         </div>
    </header>
-   <main class="container">
-        <div class="book">
-            <div class="item">Title : <span id="title">Tiger by the tail</span></div>
-            <div class="item">Author : <span id="author">Hadly chase</span></div>
-            <div class="item">Page : <span id="page">99 Pages</span></div>
-            <div class="button" id="read">READ</div>
-            <div class="button" id="del-btn">REMOVE</div>
-        </div>
-        <div class="book">
-            <div class="item">Title : <span id="title">Tiger by the tail</span></div>
-            <div class="item">Author : <span id="author">Hadly chase</span></div>
-            <div class="item">Page : <span id="page">99 Pages</span></div>
-            <div class="button" id="read">READ</div>
-            <div class="button" id="del-btn">REMOVE</div>
-        </div>
-        <div class="book">
-            <div class="item">Title : <span id="title">Tiger by the tail</span></div>
-            <div class="item">Author : <span id="author">Hadly chase</span></div>
-            <div class="item">Page : <span id="page">99 Pages</span></div>
-            <div class="button" id="read">READ</div>
-            <div class="button" id="del-btn">REMOVE</div>
-        </div>
-        <div class="book">
-            <div class="item">Title : <span id="title">Tiger by the tail</span></div>
-            <div class="item">Author : <span id="author">Hadly chase</span></div>
-            <div class="item">Page : <span id="page">99 Pages</span></div>
-            <div class="button" id="read">READ</div>
-            <div class="button" id="del-btn">REMOVE</div>
-        </div>
-        <div class="book">
-            <div class="item">Title : <span id="title">Tiger by the tail</span></div>
-            <div class="item">Author : <span id="author">Hadly chase</span></div>
-            <div class="item">Page : <span id="page">99 Pages</span></div>
-            <div class="button" id="read">READ</div>
-            <div class="button" id="del-btn">REMOVE</div>
-        </div>
+   <main class="container" id="library">
         
    </main>
    <!-- pop up modal -->
@@ -65,14 +30,14 @@
                 <img src="./img/close.svg"  id="close-modal" alt="">
             </div>
             <div class="modal-content_main">
-                <input type="text" placeholder="Title" required>
-                <input type="text" placeholder="Author" required>
-                <input type="number" placeholder="Pages" required>
+                <input type="text" id="title" placeholder="Title" required>
+                <input type="text" id="author" placeholder="Author" required>
+                <input type="number" id="page" placeholder="Pages" required>
                 <label>
                     Have you read the book?
-                    <input type="checkbox">
+                    <input type="checkbox" id="read">
                 </label>
-                <button formmethod="dialog">Add Book</button>
+                <button id="add-book">Add Book</button>
             </div>
         </form>
     </dialog>
