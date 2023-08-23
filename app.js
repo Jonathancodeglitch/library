@@ -1,6 +1,6 @@
 const bookContainer = document.getElementById('library');
 
-const library = [new Book('Ohwevwo chronicle', 'Jonathan', 999, false)];
+const library = [new Book('Ohwevwo chronicle', 'Jonathan', 999, false),new Book('Ohwevwo chronicle 1', 'Jonathan', 999, false),new Book('Ohwevwo chronicle 2', 'Jonathan', 999, false)];
 
 function Book(title, author, pages, read) {
   this.title = title;

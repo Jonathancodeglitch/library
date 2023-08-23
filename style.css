@@ -42,6 +42,7 @@ header > .container{
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 header .logo-container{
@@ -137,7 +138,7 @@ transform: scale(.99);
 /* modal */
 
 .modal{
-  max-width: 320px;
+  max-width: 300px;
   width: 100%;
   position:fixed;
   top: 50%;
@@ -227,4 +228,35 @@ transform: scale(.99);
   font-size: 1rem;
   color: #ffff;
   font-weight: bold;
+}
+
+@media (max-width:560px){
+  header{
+    padding: 15px;
+  }
+
+  header .logo-container .logo-text{
+    font-size: 2rem;
+  }
+
+  header > .container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  header .button-container .button{
+    padding: 10px;
+    margin-top: 5px;
+  }
+
+  header .button + .button {
+    margin-left: 15px;
+  }
+
+  main{
+    justify-content: center;
+    padding-top: 150px;
+  }
 }
