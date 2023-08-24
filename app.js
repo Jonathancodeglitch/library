@@ -1,6 +1,6 @@
 const bookContainer = document.getElementById('library');
 
-const library = [new Book('Ohwevwo chronicle', 'Jonathan', 999, false),new Book('Ohwevwo chronicle 1', 'Jonathan', 999, false),new Book('Ohwevwo chronicle 2', 'Jonathan', 999, false)];
+const library = [];
 
 function Book(title, author, pages, read) {
   this.title = title;
@@ -8,10 +8,6 @@ function Book(title, author, pages, read) {
   this.pages = pages;
   this.read = read;
 }
-
-Book.prototype.info = () => {
-  return `${this.title} by ${this.author}, ${this.pages} pages, ${this.read}`;
-};
 
 let title = document.getElementById('title');
 let author = document.getElementById('author');
@@ -27,8 +23,9 @@ function addBookToLibrary() {
   if (titleValue !== '' && authorValue !== '' && pageValue !== '') {
     let book = new Book(titleValue, authorValue, pageValue, readStatus);
     library.push(book);
-    displayBooks(library);
     closeModal();
+    displayBooks(library);
+
     //clear user inputs
     title.value = '';
     author.value = '';
@@ -40,7 +37,8 @@ function addBookToLibrary() {
 const addBookBtn = document.getElementById('add-book');
 addBookBtn.addEventListener('click', addBookToLibrary);
 
-function changeReadStatus(e) {
+function toggleReadStatus(e) {
+  // toggle the read button from 'read' to 'not read' vise versa
   let target = e.target;
   if (target.id == 'read') {
     let bookIndex = target.parentNode.dataset.index;
@@ -56,11 +54,11 @@ function changeReadStatus(e) {
   }
 }
 
-bookContainer.addEventListener('click', changeReadStatus);
+bookContainer.addEventListener('click', toggleReadStatus);
 
 function displayBooks(library) {
   console.log(library);
-  let html = library
+  let bookHtml = library
     .map((book, index) => {
       return `
       <div class="book" data-index="${index}" id="book">
@@ -76,12 +74,22 @@ function displayBooks(library) {
     })
     .join('');
 
-  bookContainer.innerHTML = html;
+  let greetingHtml = `<div class="greeting">
+                        Hey there scholar, your library is empty add a book!!
+                      </div>
+                       `;
+
+  if (library.length > 0) {
+    //check if library is empty or not and display the appropraite html
+    bookContainer.innerHTML = bookHtml;
+  } else {
+    bookContainer.innerHTML = greetingHtml;
+  }
 }
 
 displayBooks(library);
 
-function removeBookFromLibrary(e) {
+function deleteBookFromLibrary(e) { //delete book from library when the del button is clicked
   let target = e.target;
   if (target.id == 'del-btn') {
     let bookIndex = target.parentNode.dataset.index;
@@ -90,9 +98,10 @@ function removeBookFromLibrary(e) {
   }
 }
 
-bookContainer.addEventListener('click', removeBookFromLibrary);
+bookContainer.addEventListener('click', deleteBookFromLibrary);
 
-//modal
+//modal functionalites
+
 const showModalBtn = document.getElementById('show-modal-btn');
 const modal = document.getElementById('modal');
 const closeModalBtn = document.getElementById('close-modal');

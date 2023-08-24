@@ -88,10 +88,18 @@ header .button + .button{
 /* main */
 
 main{
-  padding: 180px 0px 150px 0px;
+  padding: 170px 0px 150px 0px;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px,1fr));
   gap: 30px;
+}
+
+.greeting{
+  text-align: center;
+  grid-column: 1/-1;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: rgba(0,0,0,0.6);
 }
 
 .book{
