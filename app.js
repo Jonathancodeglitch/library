@@ -1,6 +1,6 @@
 const bookContainer = document.getElementById('library');
 
-const library = [];
+const library = JSON.parse(localStorage.getItem('library')) || [];
 
 function Book(title, author, pages, read) {
   this.title = title;
@@ -14,7 +14,11 @@ let author = document.getElementById('author');
 let page = document.getElementById('page');
 let read = document.getElementById('read');
 
-function addBookToLibrary() {
+function saveBookToLocalStorage() {
+  localStorage.setItem('library', JSON.stringify(library));
+}
+
+function addBookToLibrary(e) {
   let titleValue = title.value;
   let authorValue = author.value;
   let pageValue = page.value;
@@ -24,13 +28,14 @@ function addBookToLibrary() {
     let book = new Book(titleValue, authorValue, pageValue, readStatus);
     library.push(book);
     closeModal();
+    saveBookToLocalStorage();
     displayBooks(library);
 
     //clear user inputs
-    title.value = '';
+    /*  title.value = '';
     author.value = '';
     page.value = '';
-    read.checked = false;
+    read.checked = false; */
   }
 }
 
@@ -51,13 +56,13 @@ function toggleReadStatus(e) {
       target.textContent = 'Read';
       target.style.backgroundColor = '#A1CCD1';
     }
+    saveBookToLocalStorage();
   }
 }
 
 bookContainer.addEventListener('click', toggleReadStatus);
 
 function displayBooks(library) {
-  console.log(library);
   let bookHtml = library
     .map((book, index) => {
       return `
@@ -89,11 +94,13 @@ function displayBooks(library) {
 
 displayBooks(library);
 
-function deleteBookFromLibrary(e) { //delete book from library when the del button is clicked
+function deleteBookFromLibrary(e) {
+  //delete book from library when the del button is clicked
   let target = e.target;
   if (target.id == 'del-btn') {
     let bookIndex = target.parentNode.dataset.index;
     library.splice(bookIndex, 1);
+    saveBookToLocalStorage();
     displayBooks(library);
   }
 }
