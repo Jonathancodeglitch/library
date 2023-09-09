@@ -1,14 +1,4 @@
-const bookContainer = document.getElementById('library');
-
-const library = JSON.parse(localStorage.getItem('library')) || [];
-
-function Book(title, author, pages, read) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
-}
-
+/* 
 let title = document.getElementById('title');
 let author = document.getElementById('author');
 let page = document.getElementById('page');
@@ -30,12 +20,6 @@ function addBookToLibrary(e) {
     closeModal();
     saveBookToLocalStorage();
     displayBooks(library);
-
-    //clear user inputs
-    /*  title.value = '';
-    author.value = '';
-    page.value = '';
-    read.checked = false; */
   }
 }
 
@@ -122,3 +106,61 @@ closeModalBtn.addEventListener('click', closeModal);
 function closeModal() {
   modal.close();
 }
+ */
+
+//display books from the array on page load
+//add new book to the array and display the current array content
+//delete book from array
+
+const bookContainer = document.getElementById('library');
+
+class Book {
+  library = [
+    {
+      title: 'Ohwevwo cronicles',
+      author: 'jonathan',
+      page: '999',
+      read: 'read',
+    },
+    {
+      title: 'Ohwevwo cronicles',
+      author: 'jonathan',
+      page: '999',
+      read: 'read',
+    },
+    {
+      title: 'Ohwevwo cronicles',
+      author: 'jonathan',
+      page: '999',
+      read: 'read',
+    },
+  ];
+  constructor(title, author, pages, read) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
+  }
+
+  static createHtml(book) {
+    let bookHtml = `
+      <div class="book" data-index="" id="book">
+        <div class="item">Title : <span>${book.title}</span></div>
+        <div class="item">Author : <span>${book.author}</span></div>
+        <div class="item">Page : <span>${book.page} Pages</span></div>
+        <div class="button" id="read" style="background-color: ${
+          book.read ? '#A1CCD1' : 'rgb(241, 116, 116)'
+        }">${book.read ? 'Read' : 'Not Read'}</div>
+        <div class="button"  id="del-btn">REMOVE</div>
+      </div>
+    `;
+    return bookHtml;
+  }
+
+  render() {
+    let bookHtml = this.library.map((book) => Book.createHtml(book));
+    bookContainer.innerHTML = bookHtml.join('');
+  }
+}
+
+console.log(new Book().render());
