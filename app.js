@@ -1,8 +1,5 @@
 /* 
-let title = document.getElementById('title');
-let author = document.getElementById('author');
-let page = document.getElementById('page');
-let read = document.getElementById('read');
+
 
 function saveBookToLocalStorage() {
   localStorage.setItem('library', JSON.stringify(library));
@@ -91,21 +88,7 @@ function deleteBookFromLibrary(e) {
 
 bookContainer.addEventListener('click', deleteBookFromLibrary);
 
-//modal functionalites
 
-const showModalBtn = document.getElementById('show-modal-btn');
-const modal = document.getElementById('modal');
-const closeModalBtn = document.getElementById('close-modal');
-
-showModalBtn.addEventListener('click', showModal);
-function showModal() {
-  modal.showModal();
-}
-
-closeModalBtn.addEventListener('click', closeModal);
-function closeModal() {
-  modal.close();
-}
  */
 
 //display books from the array on page load
@@ -114,8 +97,8 @@ function closeModal() {
 
 const bookContainer = document.getElementById('library');
 
-class Book {
-  library = [
+class BookLibrary {
+  #library = [
     {
       title: 'Ohwevwo cronicles',
       author: 'jonathan',
@@ -135,10 +118,11 @@ class Book {
       read: 'read',
     },
   ];
-  constructor(title, author, pages, read) {
+
+  constructor(title, author, page, read) {
     this.title = title;
     this.author = author;
-    this.pages = pages;
+    this.page = page;
     this.read = read;
   }
 
@@ -148,7 +132,7 @@ class Book {
         <div class="item">Title : <span>${book.title}</span></div>
         <div class="item">Author : <span>${book.author}</span></div>
         <div class="item">Page : <span>${book.page} Pages</span></div>
-        <div class="button" id="read" style="background-color: ${
+        <div class="button"  style="background-color: ${
           book.read ? '#A1CCD1' : 'rgb(241, 116, 116)'
         }">${book.read ? 'Read' : 'Not Read'}</div>
         <div class="button"  id="del-btn">REMOVE</div>
@@ -158,9 +142,54 @@ class Book {
   }
 
   render() {
-    let bookHtml = this.library.map((book) => Book.createHtml(book));
-    bookContainer.innerHTML = bookHtml.join('');
+    let bookHtml = this.#library
+      .map((book) => BookLibrary.createHtml(book))
+      .join('');
+    bookContainer.innerHTML = bookHtml;
   }
+
+  addBookToLibrary = (e) => {
+    e.preventDefault();
+
+    //inputs values
+    let title = document.getElementById('title').value;
+    let author = document.getElementById('author').value;
+    let page = document.getElementById('page').value;
+    let read = document.getElementById('read').checked;
+
+    if (title !== '' && author !== '' && page !== '') {
+      let newBook = new BookLibrary(title, author, page, read);
+      this.#library.push(newBook);
+      this.render();
+      closeModal();
+      //reset modal input form
+      document.getElementById('modal-content').reset();
+    }
+  };
 }
 
-console.log(new Book().render());
+const form = document.getElementById('modal-content');
+
+//add book to library
+form.addEventListener('submit', (e) => {
+  booKLibrary.addBookToLibrary(e);
+});
+
+let booKLibrary = new BookLibrary();
+//render books to dom
+booKLibrary.render();
+
+//modal functionalites
+const showModalBtn = document.getElementById('show-modal-btn');
+const modal = document.getElementById('modal');
+const closeModalBtn = document.getElementById('close-modal');
+
+function showModal() {
+  modal.showModal();
+}
+showModalBtn.addEventListener('click', showModal);
+
+function closeModal() {
+  modal.close();
+}
+closeModalBtn.addEventListener('click', closeModal);
