@@ -96,23 +96,24 @@ bookContainer.addEventListener('click', deleteBookFromLibrary);
 //delete book from array
 
 const bookContainer = document.getElementById('library');
+const form = document.getElementById('modal-content');
 
 class BookLibrary {
   #library = [
     {
-      title: 'Ohwevwo cronicles',
+      title: 'cronicles 1',
       author: 'jonathan',
       page: '999',
       read: 'read',
     },
     {
-      title: 'Ohwevwo cronicles',
+      title: 'cronicles 2',
       author: 'jonathan',
       page: '999',
       read: 'read',
     },
     {
-      title: 'Ohwevwo cronicles',
+      title: 'Ohwevwo cronicles 3',
       author: 'jonathan',
       page: '999',
       read: 'read',
@@ -126,9 +127,9 @@ class BookLibrary {
     this.read = read;
   }
 
-  static createHtml(book) {
+  static createHtml(book, index) {
     let bookHtml = `
-      <div class="book" data-index="" id="book">
+      <div class="book" data-index="${index}" id="book">
         <div class="item">Title : <span>${book.title}</span></div>
         <div class="item">Author : <span>${book.author}</span></div>
         <div class="item">Page : <span>${book.page} Pages</span></div>
@@ -141,13 +142,15 @@ class BookLibrary {
     return bookHtml;
   }
 
+  // render library array to the Dom
   render() {
     let bookHtml = this.#library
-      .map((book) => BookLibrary.createHtml(book))
+      .map((book, index) => BookLibrary.createHtml(book, index))
       .join('');
     bookContainer.innerHTML = bookHtml;
   }
 
+  //add book to library
   addBookToLibrary = (e) => {
     e.preventDefault();
 
@@ -163,19 +166,32 @@ class BookLibrary {
       this.render();
       closeModal();
       //reset modal input form
-      document.getElementById('modal-content').reset();
+      form.reset();
+    }
+  };
+
+  //remove book from library
+  removeBook = (e) => {
+    let target = e.target;
+    if (target.id == 'del-btn') {
+      let bookIndex = target.parentNode.dataset.index;
+      this.#library.splice(bookIndex, 1);
+      this.render()
     }
   };
 }
 
-const form = document.getElementById('modal-content');
+//class instance
+let booKLibrary = new BookLibrary();
 
-//add book to library
+//remove book button event
+bookContainer.addEventListener('click', booKLibrary.removeBook);
+
+//add book to library on form submit
 form.addEventListener('submit', (e) => {
   booKLibrary.addBookToLibrary(e);
 });
 
-let booKLibrary = new BookLibrary();
 //render books to dom
 booKLibrary.render();
 
