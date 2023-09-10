@@ -98,8 +98,18 @@ bookContainer.addEventListener('click', deleteBookFromLibrary);
 const bookContainer = document.getElementById('library');
 const form = document.getElementById('modal-content');
 
-class BookLibrary {
-  #library = [
+class Book {
+  constructor(title, author, page, read) {
+    this.title = title;
+    this.author = author;
+    this.page = page;
+    this.read = read;
+  }
+}
+
+class Library {
+  //store  books
+  library = [
     {
       title: 'cronicles 1',
       author: 'jonathan',
@@ -120,20 +130,14 @@ class BookLibrary {
     },
   ];
 
-  constructor(title, author, page, read) {
-    this.title = title;
-    this.author = author;
-    this.page = page;
-    this.read = read;
-  }
-
+  // create html for book
   static createHtml(book, index) {
     let bookHtml = `
       <div class="book" data-index="${index}" id="book">
         <div class="item">Title : <span>${book.title}</span></div>
         <div class="item">Author : <span>${book.author}</span></div>
         <div class="item">Page : <span>${book.page} Pages</span></div>
-        <div class="button"  style="background-color: ${
+        <div class="button" id="read-status" style="background-color: ${
           book.read ? '#A1CCD1' : 'rgb(241, 116, 116)'
         }">${book.read ? 'Read' : 'Not Read'}</div>
         <div class="button"  id="del-btn">REMOVE</div>
@@ -142,15 +146,15 @@ class BookLibrary {
     return bookHtml;
   }
 
-  // render library array to the Dom
+  // render all books currently in the #library array to the Dom
   render() {
-    let bookHtml = this.#library
-      .map((book, index) => BookLibrary.createHtml(book, index))
+    let bookHtml = this.library
+      .map((book, index) => Library.createHtml(book, index))
       .join('');
     bookContainer.innerHTML = bookHtml;
   }
 
-  //add book to library
+  //add book to #library array
   addBookToLibrary = (e) => {
     e.preventDefault();
 
@@ -161,39 +165,72 @@ class BookLibrary {
     let read = document.getElementById('read').checked;
 
     if (title !== '' && author !== '' && page !== '') {
-      let newBook = new BookLibrary(title, author, page, read);
-      this.#library.push(newBook);
+      let newBook = new Book(title, author, page, read);
+      this.library.push(newBook);
       this.render();
       closeModal();
       //reset modal input form
       form.reset();
+
+      //save current data to localStorage
+      Library.saveLibraryToLocalStorage();
     }
   };
 
-  //remove book from library
+  static saveLibraryToLocalStorage() {
+    localStorage.setItem('library', JSON.stringify(this.library));
+  }
+
+  //remove book from #librarys
   removeBook = (e) => {
     let target = e.target;
     if (target.id == 'del-btn') {
       let bookIndex = target.parentNode.dataset.index;
-      this.#library.splice(bookIndex, 1);
-      this.render()
+      this.library.splice(bookIndex, 1);
+      this.render();
+    }
+  };
+
+  //toggle read status
+  toggleReadStatus = (e) => {
+    let target = e.target;
+    if (target.id == 'read-status') {
+      let bookIndex = target.parentNode.dataset.index;
+      //check if book was read if it was change it to not read
+      // on click event and update the library
+      //and render the updated library to the dom
+
+      if (this.library[bookIndex].read) {
+        this.library[bookIndex].read = false;
+        target.textContent = 'Not Read';
+        target.style.backgroundColor = 'rgb(241, 116, 116)';
+      } else {
+        this.library[bookIndex].read = true;
+        target.textContent = 'Read';
+        target.style.backgroundColor = '#A1CCD1';
+      }
+
+      this.render();
     }
   };
 }
 
 //class instance
-let booKLibrary = new BookLibrary();
+let bookLibrary = new Library();
 
 //remove book button event
-bookContainer.addEventListener('click', booKLibrary.removeBook);
+bookContainer.addEventListener('click',  bookLibrary.removeBook);
 
-//add book to library on form submit
+//add new book to library on form submit
 form.addEventListener('submit', (e) => {
-  booKLibrary.addBookToLibrary(e);
+  bookLibrary.addBookToLibrary(e);
 });
 
+//toggle readStatus when read button is clicked
+bookContainer.addEventListener('click', bookLibrary.toggleReadStatus);
+
 //render books to dom
-booKLibrary.render();
+bookLibrary.render();
 
 //modal functionalites
 const showModalBtn = document.getElementById('show-modal-btn');
