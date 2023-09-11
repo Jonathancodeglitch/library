@@ -109,30 +109,11 @@ class Book {
 
 class Library {
   //store  books
-  library = [
-    {
-      title: 'cronicles 1',
-      author: 'jonathan',
-      page: '999',
-      read: 'read',
-    },
-    {
-      title: 'cronicles 2',
-      author: 'jonathan',
-      page: '999',
-      read: 'read',
-    },
-    {
-      title: 'Ohwevwo cronicles 3',
-      author: 'jonathan',
-      page: '999',
-      read: 'read',
-    },
-  ];
+  library = JSON.parse(localStorage.getItem('library')) || [];
 
   // create html for book
-  static createHtml(book, index) {
-    let bookHtml = `
+  static createBookHtml(book, index) {
+    return `
       <div class="book" data-index="${index}" id="book">
         <div class="item">Title : <span>${book.title}</span></div>
         <div class="item">Author : <span>${book.author}</span></div>
@@ -143,15 +124,24 @@ class Library {
         <div class="button"  id="del-btn">REMOVE</div>
       </div>
     `;
-    return bookHtml;
+  }
+  
+  //create greeting html
+  static createGreetingHtml() {
+    return `<div class="greeting">
+              Hey there scholar, your library is empty add a book!!
+            </div>`;
   }
 
   // render all books currently in the #library array to the Dom
   render() {
-    let bookHtml = this.library
-      .map((book, index) => Library.createHtml(book, index))
+    let bookhtml = this.library
+      .map((book, index) => Library.createBookHtml(book, index))
       .join('');
-    bookContainer.innerHTML = bookHtml;
+
+    //check if library is empty and display the correct html
+    bookContainer.innerHTML =
+      this.library.length > 0 ? bookhtml : Library.createGreetingHtml();
   }
 
   //add book to #library array
@@ -167,18 +157,18 @@ class Library {
     if (title !== '' && author !== '' && page !== '') {
       let newBook = new Book(title, author, page, read);
       this.library.push(newBook);
-      this.render();
-      closeModal();
+      modalController.closeModal();
       //reset modal input form
       form.reset();
-
       //save current data to localStorage
       Library.saveLibraryToLocalStorage();
+      //update
+      this.render();
     }
   };
 
   static saveLibraryToLocalStorage() {
-    localStorage.setItem('library', JSON.stringify(this.library));
+    localStorage.setItem('library', JSON.stringify(bookLibrary.library));
   }
 
   //remove book from #librarys
@@ -187,7 +177,9 @@ class Library {
     if (target.id == 'del-btn') {
       let bookIndex = target.parentNode.dataset.index;
       this.library.splice(bookIndex, 1);
+      Library.saveLibraryToLocalStorage();
       this.render();
+      console.log(this.library.length);
     }
   };
 
@@ -210,6 +202,7 @@ class Library {
         target.style.backgroundColor = '#A1CCD1';
       }
 
+      Library.saveLibraryToLocalStorage();
       this.render();
     }
   };
@@ -219,7 +212,7 @@ class Library {
 let bookLibrary = new Library();
 
 //remove book button event
-bookContainer.addEventListener('click',  bookLibrary.removeBook);
+bookContainer.addEventListener('click', bookLibrary.removeBook);
 
 //add new book to library on form submit
 form.addEventListener('submit', (e) => {
@@ -232,17 +225,25 @@ bookContainer.addEventListener('click', bookLibrary.toggleReadStatus);
 //render books to dom
 bookLibrary.render();
 
-//modal functionalites
+//modal functionalite
+const modalController = (() => {
+  const modal = document.getElementById('modal');
+
+  function showModal() {
+    modal.showModal();
+  }
+  function closeModal() {
+    modal.close();
+  }
+  return {
+    showModal,
+    closeModal,
+  };
+})();
+
+//modal btns
 const showModalBtn = document.getElementById('show-modal-btn');
-const modal = document.getElementById('modal');
 const closeModalBtn = document.getElementById('close-modal');
 
-function showModal() {
-  modal.showModal();
-}
-showModalBtn.addEventListener('click', showModal);
-
-function closeModal() {
-  modal.close();
-}
-closeModalBtn.addEventListener('click', closeModal);
+showModalBtn.addEventListener('click', modalController.showModal);
+closeModalBtn.addEventListener('click', modalController.closeModal);
