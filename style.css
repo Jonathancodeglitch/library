@@ -1,36 +1,34 @@
-*{
+* {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-:root{
-  --primary-color:#A1CCD1;
- 
+:root {
+  --primary-color: #a1ccd1;
 }
 
-img{
+img {
   max-width: 100%;
 }
 
-.container{
+.container {
   max-width: 1200px;
   width: 85%;
   margin: 0 auto;
 }
 
-.button{
+.button {
   color: #ffff;
   text-transform: uppercase;
   cursor: pointer;
 }
 
-
 /* header */
-header{
+header {
   background-color: var(--primary-color);
   padding: 30px 0px;
-  box-shadow: 0px 4px 5px rgba(0,0,0,0.3);
+  box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.3);
   z-index: 1;
   position: fixed;
   top: 0px;
@@ -38,88 +36,84 @@ header{
   left: 0px;
 }
 
-header > .container{
+header > .container {
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
 }
 
-header .logo-container{
+header .logo-container {
   display: flex;
   align-items: center;
 }
 
-header .logo-container .logo-text{
+header .logo-container .logo-text {
   font-weight: bold;
   font-size: 2.2rem;
-  margin-right:3px;
+  margin-right: 3px;
   color: #ffff;
 }
 
-header .button-container{
+header .button-container {
   display: flex;
   align-items: center;
 }
 
-
-header .button-container .button{
+header .button-container .button {
   display: inline-block;
   font-size: 1.1rem;
   font-weight: bold;
   padding: 10px 20px;
-  background-color:var(--primary-color);
-  border-radius:10px;
-  box-shadow: 0px 0px 7px rgba(0,0,0,0.2);
-  transition:  all .15s ease-in-out;
+  background-color: var(--primary-color);
+  border-radius: 10px;
+  box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.2);
+  transition: all 0.15s ease-in-out;
 }
 
 header .button-container .button:hover,
-header .button-container .button:active
-{
-
-transform: scale(1.1);
+header .button-container .button:active {
+  transform: scale(1.1);
 }
 
-header .button + .button{
+header .button + .button {
   margin-left: 30px;
 }
 
 /* main */
 
-main{
+main {
   padding: 170px 0px 150px 0px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px,1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 30px;
 }
 
-.greeting{
+.greeting {
   text-align: center;
   grid-column: 1/-1;
   font-size: 1.8rem;
   font-weight: bold;
-  color: rgba(0,0,0,0.6);
+  color: rgba(0, 0, 0, 0.6);
 }
 
-.book{
+.book {
   padding: 25px;
   padding-bottom: 35px;
   border-radius: 20px;
-  box-shadow: 0px 5px 10px rgba(0,0,0,0.2);
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
   width: 100%;
-  min-height:230px;
+  min-height: 230px;
 }
 
-
-.book > div + div{
+.book > div + div {
   margin-top: 15px;
 }
 
-.book .item{
+.book .item {
   font-weight: bold;
   line-height: 1.5;
-  color: rgba(0,0,0,0.6);
+  color: rgba(0, 0, 0, 0.6);
   font-size: 1.1rem;
   text-transform: uppercase;
   white-space: nowrap;
@@ -127,43 +121,41 @@ main{
   text-overflow: ellipsis;
 }
 
-.book .button{
+.book .button {
   display: block;
   background-color: var(--primary-color);
   text-align: center;
   border-radius: 10px;
   padding: 10px 0px;
-  box-shadow: 0 0 8px rgba(0,0,0,0.2);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
 }
 
 .book .button:hover,
-.book .button:active
-{
-transform: scale(.99);
-
+.book .button:active {
+  transform: scale(0.99);
 }
 
 /* modal */
 
-.modal{
+.modal {
   max-width: 300px;
   width: 100%;
-  position:fixed;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   border: 0;
-  box-shadow: 0 0 16px rgba(0,0,0,0.3);
+  box-shadow: 0 0 16px rgba(0, 0, 0, 0.3);
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  padding-bottom:30px;
+  padding-bottom: 30px;
 }
 
-.modal::backdrop{
-  background-color:rgba(0,0,0,0.2);
+.modal::backdrop {
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
-.modal-content_header{
+.modal-content_header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -171,62 +163,62 @@ transform: scale(.99);
   border-top-right-radius: 10px;
   background-color: var(--primary-color);
   padding: 10px;
-  border-bottom: 3px solid #7C9D96;
+  border-bottom: 3px solid #7c9d96;
 }
 
-.modal-content_header img{
+.modal-content_header img {
   width: 35px;
   height: 35px;
   cursor: pointer;
 }
 
-.modal-content_header h3{
+.modal-content_header h3 {
   font-size: 1.3rem;
   color: #ffff;
   font-weight: bold;
   text-transform: uppercase;
 }
 
-.modal-content_main{
+.modal-content_main {
   padding: 20px 10px 0px 10px;
 }
 
-.modal-content_main > *+*{
+.modal-content_main > * + * {
   margin-top: 15px;
 }
 
-.modal-content_main > input{
+.modal-content_main > input {
   display: block;
   width: 100%;
   outline: none;
   border: 0;
-  box-shadow:  0 0 5px rgba(0,0,0,0.2);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
   padding: 10px;
 }
 
-.modal-content_main > input::placeholder{
-  font-size: .85rem;
-  color: rgba(0,0,0,0.5);
+.modal-content_main > input::placeholder {
+  font-size: 0.85rem;
+  color: rgba(0, 0, 0, 0.5);
   font-weight: bold;
   text-transform: uppercase;
 }
 
-.modal-content_main label{
+.modal-content_main label {
   display: flex;
   align-items: center;
-  font-size: .85rem;
-  color: rgba(0,0,0,0.5);
+  font-size: 0.85rem;
+  color: rgba(0, 0, 0, 0.5);
   font-weight: bold;
   text-transform: uppercase;
 }
 
-.modal-content_main label input[type="checkbox"]{
+.modal-content_main label input[type='checkbox'] {
   display: inline-block;
   margin-left: 8px;
   cursor: pointer;
 }
 
-.modal-content_main button{
+.modal-content_main button {
   display: block;
   padding: 10px;
   width: 100%;
@@ -238,23 +230,36 @@ transform: scale(.99);
   font-weight: bold;
 }
 
-@media (max-width:560px){
-  header{
+/* input validate */
+
+input:focus:invalid {
+  border: 2px solid red;
+  outline: none;
+}
+
+input:valid {
+  border: 1px solid green;
+  outline: none;
+}
+
+
+@media (max-width: 560px) {
+  header {
     padding: 15px;
   }
 
-  header .logo-container .logo-text{
+  header .logo-container .logo-text {
     font-size: 2rem;
   }
 
-  header > .container{
+  header > .container {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
   }
 
-  header .button-container .button{
+  header .button-container .button {
     padding: 10px;
     margin-top: 5px;
   }
@@ -263,7 +268,7 @@ transform: scale(.99);
     margin-left: 15px;
   }
 
-  main{
+  main {
     justify-content: center;
     padding-top: 150px;
   }

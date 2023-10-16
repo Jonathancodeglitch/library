@@ -1,11 +1,37 @@
+//modal functionalite
+const modalController = (() => {
+  const modal = document.getElementById('modal');
+  //modal btns
+  const showModalBtn = document.getElementById('show-modal-btn');
+  const closeModalBtn = document.getElementById('close-modal');
+
+  const showModal = () => {
+    modal.showModal();
+  };
+  const closeModal = () => {
+    modal.close();
+  };
+
+  const modalEvents = () => {
+    showModalBtn.addEventListener('click', showModal);
+    closeModalBtn.addEventListener('click', closeModal);
+  };
+
+  modalEvents();
+  return {
+    closeModal,
+  };
+})();
+
+const domController = (() => {
+  
+})();
+
+/* encapsulate functions of book */
 
 class BookToLibrary {
   //store  books
   library = JSON.parse(localStorage.getItem('library')) || [];
-
-  //catch Dom
-  bookContainer = document.getElementById('library');
-  modalForm = document.getElementById('modal-content');
 
   constructor(title, author, page, read) {
     this.title = title;
@@ -13,6 +39,10 @@ class BookToLibrary {
     this.page = page;
     this.read = read;
   }
+
+  //catch Dom
+  bookContainer = document.getElementById('library');
+  modalForm = document.getElementById('modal-content');
 
   //initialize
   init() {
@@ -56,14 +86,13 @@ class BookToLibrary {
   //add book to #library array
   addBookToLibrary = (e) => {
     e.preventDefault();
-
     //inputs values
     let title = document.getElementById('title').value;
     let author = document.getElementById('author').value;
     let page = document.getElementById('page').value;
     let read = document.getElementById('read').checked;
 
-    if (title !== '' && author !== '' && page !== '') {
+    if (bookLibrary.modalForm.checkValidity()) {
       let newBook = new BookToLibrary(title, author, page, read);
       this.library.push(newBook);
       modalController.closeModal();
@@ -134,28 +163,3 @@ let bookLibrary = new BookToLibrary();
 
 //initialize class
 bookLibrary.init();
-
-//modal functionalite
-const modalController = (() => {
-  const modal = document.getElementById('modal');
-  //modal btns
-  const showModalBtn = document.getElementById('show-modal-btn');
-  const closeModalBtn = document.getElementById('close-modal');
-
-  const showModal = () => {
-    modal.showModal();
-  };
-  const closeModal = () => {
-    modal.close();
-  };
-
-  const modalEvents = () => {
-    showModalBtn.addEventListener('click', showModal);
-    closeModalBtn.addEventListener('click', closeModal);
-  };
-
-  modalEvents();
-  return {
-    closeModal,
-  };
-})();
